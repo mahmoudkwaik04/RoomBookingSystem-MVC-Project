@@ -1,0 +1,59 @@
+@model RoomBookingSystem.Models.Room
+
+@{
+    ViewData["Title"] = "Add Room";
+}
+
+<div class="page-header">
+    <div>
+        <h2>Add New Room</h2>
+        <p class="page-subtitle">Create a new room and define its details</p>
+    </div>
+</div>
+
+<div class="card form-card">
+    <form asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="form-grid">
+            <div>
+                <label asp-for="RoomName" class="form-label"></label>
+                <input asp-for="RoomName" class="input" placeholder="Enter room name" />
+                <span asp-validation-for="RoomName" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="Capacity" class="form-label"></label>
+                <input asp-for="Capacity" class="input" placeholder="Enter capacity" />
+                <span asp-validation-for="Capacity" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="Location" class="form-label"></label>
+                <input asp-for="Location" class="input" placeholder="e.g. 2nd Floor" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="Status" class="form-label"></label>
+                <select asp-for="Status" asp-items="Html.GetEnumSelectList<RoomBookingSystem.Models.RoomStatus>()" class="select"></select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div style="margin-top: 16px;">
+            <label asp-for="Features" class="form-label"></label>
+            <textarea asp-for="Features" class="input" rows="4" placeholder="Projector, WiFi, Smart TV..."></textarea>
+            <span asp-validation-for="Features" class="text-danger"></span>
+        </div>
+
+        <div class="form-actions">
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn">Save Room</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

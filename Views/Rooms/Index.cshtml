@@ -1,0 +1,67 @@
+@model List<RoomBookingSystem.Models.Room>
+
+@{
+    ViewData["Title"] = "Rooms Management";
+}
+
+<div class="page-header">
+    <div>
+        <h2>Rooms Management</h2>
+        <p class="page-subtitle">Manage conference and meeting rooms</p>
+    </div>
+    <a asp-action="Create" class="btn">+ Add New Room</a>
+</div>
+
+<div class="card">
+    @if (Model == null || !Model.Any())
+    {
+        <div class="empty-state">
+            <h3>No rooms found</h3>
+            <p>Start by adding the first room to the system.</p>
+            <a asp-action="Create" class="btn">Add Room</a>
+        </div>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Room Name</th>
+                    <th>Capacity</th>
+                    <th>Location</th>
+                    <th>Features</th>
+                    <th>Status</th>
+                    <th style="width: 140px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var room in Model)
+                {
+                    <tr>
+                        <td>@room.RoomName</td>
+                        <td>@room.Capacity</td>
+                        <td>@room.Location</td>
+                        <td>@room.Features</td>
+                        <td>
+                            @if (room.Status == RoomBookingSystem.Models.RoomStatus.Available)
+                            {
+                                <span class="badge badge-success">Available</span>
+                            }
+                            else if (room.Status == RoomBookingSystem.Models.RoomStatus.Occupied)
+                            {
+                                <span class="badge badge-warning">Occupied</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Maintenance</span>
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@room.RoomID" class="btn btn-sm">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

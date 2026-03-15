@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "Book a Room";
+}
+
+<div class="card">
+    <h2>Search Available Rooms</h2>
+
+    @if (TempData["Message"] != null)
+    {
+        <p>@TempData["Message"]</p>
+    }
+
+    <form asp-action="Search" method="post">
+        <label>Start Time</label>
+        <input type="datetime-local" name="start" class="input" required />
+
+        <label>End Time</label>
+        <input type="datetime-local" name="end" class="input" required />
+
+        <label>Minimum Capacity</label>
+        <input type="number" name="capacity" class="input" />
+
+        <label>Features</label>
+        <input type="text" name="features" class="input" placeholder="Projector, WiFi..." />
+
+        <button type="submit" class="btn">Search</button>
+    </form>
+</div>

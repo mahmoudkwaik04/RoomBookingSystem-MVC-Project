@@ -1,0 +1,62 @@
+@model RoomBookingSystem.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<style>
+    .dash-hero {
+        display: flex; align-items: center; justify-content: space-between;
+        background: linear-gradient(135deg, #1e3a8a, #2563eb);
+        color: #fff; padding: 18px 20px; border-radius: 16px; margin-bottom: 18px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.12);
+    }
+    .dash-hero .brand { display: flex; align-items: center; gap: 12px; }
+    .dash-hero .brand .logo-badge { background: #fff; border-radius: 14px; padding: 8px 10px; box-shadow: 0 6px 18px rgba(0,0,0,.15); }
+    .dash-hero .brand img { height: 40px; display: block; }
+    .dash-hero h2 { margin: 0; font-weight: 800; }
+    .kpis { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+    .kpi { background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 8px 22px rgba(0,0,0,.08); border: 1px solid #eef2f7; }
+    .kpi .label { color: #6b7280; font-size: .9rem; }
+    .kpi .value { font-size: 1.8rem; font-weight: 800; color: #111827; }
+    .quick { background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 8px 22px rgba(0,0,0,.08); border: 1px solid #eef2f7; margin-top: 18px; display:flex; align-items:center; justify-content:space-between; }
+    .btn-primary { background: linear-gradient(135deg, #2563eb, #3b82f6); border: none; color: #fff; padding: 10px 14px; border-radius: 10px; font-weight: 700; box-shadow: 0 8px 20px rgba(37,99,235,.25); }
+    @@media (max-width: 900px) {
+        .kpis { grid-template-columns: 1fr; }
+        .dash-hero { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+</style>
+
+<div class="dash-hero">
+    <div class="brand">
+        <div class="logo-badge">
+            <img src="~/images/logo.png" alt="RoomBooking Logo" />
+        </div>
+        <div>
+            <h2>Welcome, @User.Identity?.Name</h2>
+            <div class="text-white-50">Here is an overview of your system today</div>
+        </div>
+    </div>
+</div>
+
+<div class="kpis">
+    <div class="kpi">
+        <div class="label">Total Rooms</div>
+        <div class="value">@Model.TotalRooms</div>
+    </div>
+    <div class="kpi">
+        <div class="label">Pending Requests</div>
+        <div class="value">@Model.PendingRequests</div>
+    </div>
+    <div class="kpi">
+        <div class="label">Approved Today</div>
+        <div class="value">@Model.ApprovedToday</div>
+    </div>
+</div>
+
+<div class="quick">
+    <div>
+        <h3 style="margin:0 0 6px 0;">Quick Actions</h3>
+        <div style="color:#6b7280;">Create a new room reservation</div>
+    </div>
+    <a class="btn-primary" asp-controller="Bookings" asp-action="Search">Book a Room</a>
+</div>

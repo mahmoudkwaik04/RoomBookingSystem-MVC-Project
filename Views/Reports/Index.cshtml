@@ -1,0 +1,10 @@
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<div style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px;">
+    <div class="card"><h3>Total Bookings</h3><p>@ViewBag.TotalBookings</p></div>
+    <div class="card"><h3>Approved</h3><p>@ViewBag.Approved</p></div>
+    <div class="card"><h3>Pending</h3><p>@ViewBag.Pending</p></div>
+    <div class="card"><h3>Rejected</h3><p>@ViewBag.Rejected</p></div>
+</div>

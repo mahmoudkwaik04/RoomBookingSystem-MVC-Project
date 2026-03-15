@@ -1,0 +1,39 @@
+@model List<RoomBookingSystem.Models.Room>
+@{
+    ViewData["Title"] = "Available Rooms";
+}
+
+<div class="card">
+    <h2>Available Rooms</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Room Name</th>
+                <th>Capacity</th>
+                <th>Location</th>
+                <th>Features</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var room in Model)
+        {
+            <tr>
+                <td>@room.RoomName</td>
+                <td>@room.Capacity</td>
+                <td>@room.Location</td>
+                <td>@room.Features</td>
+                <td>
+                    <form asp-action="Create" method="post">
+                        <input type="hidden" name="RoomID" value="@room.RoomID" />
+                        <input type="hidden" name="StartTime" value="@ViewBag.Start" />
+                        <input type="hidden" name="EndTime" value="@ViewBag.End" />
+                        <button type="submit" class="btn">Request Booking</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

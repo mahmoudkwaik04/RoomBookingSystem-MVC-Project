@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Room Booking System</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div>
+                <h2 class="logo">RoomBooking</h2>
+                <p class="sidebar-subtitle">Management System</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                <a asp-controller="Bookings" asp-action="Search">Book Room</a>
+
+                @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Bookings" asp-action="Pending">Pending Requests</a>
+                }
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Rooms" asp-action="Index">Rooms</a>
+                    <a asp-controller="Audit" asp-action="Index">Audit Logs</a>
+                }
+
+                @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Reports" asp-action="Index">Reports</a>
+                }
+
+                <a asp-controller="Account" asp-action="Logout">Logout</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <h1>@ViewData["Title"]</h1>
+                </div>
+                <div class="user-box">
+                    Hello, @User.Identity?.Name
+                </div>
+            </header>
+
+            <section class="content-area">
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert-success">@TempData["SuccessMessage"]</div>
+                }
+
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="alert-danger">@TempData["ErrorMessage"]</div>
+                }
+
+                @RenderBody()
+            </section>
+        </main>
+    </div>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
